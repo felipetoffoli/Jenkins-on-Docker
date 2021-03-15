@@ -7,11 +7,13 @@ services:
       context: .
     volumes: 
       - jenkins_home:/var/jenkins_home
+      - jenkins_logs:/var/log/jenkins
     ports: 
       - "8080:8080"
     environment: 
-      JENKINS_OPTS: '--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log'
+      JENKINS_OPTS: '--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war'
       JAVA_OPTS: '-Xmx8192m'
 
 volumes:
   jenkins_home: 
+  jenkins_logs: 
