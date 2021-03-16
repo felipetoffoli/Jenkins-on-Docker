@@ -9,11 +9,23 @@ services:
       - jenkins_home:/var/jenkins_home
       - jenkins_logs:/var/log/jenkins
     ports: 
-      - "8080:8080"
+      - "50000:50000"
+    networks:
+      - jenkins-net
     environment: 
       JENKINS_OPTS: '--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war'
       JAVA_OPTS: '-Xmx8192m'
+  
+  dns-nginx:
+    build: ./jenkins-nginx
+    ports:
+      - "80:80"
+    networks:
+      - jenkins-net
 
 volumes:
   jenkins_home: 
   jenkins_logs: 
+
+networks: 
+  networks-net:
