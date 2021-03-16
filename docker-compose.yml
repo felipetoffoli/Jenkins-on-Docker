@@ -4,7 +4,7 @@ services:
   app-jenkins:
     container_name: app_jenkins
     build: 
-      context: .
+      context: jenkins/.
     volumes: 
       - jenkins_home:/var/jenkins_home
       - jenkins_logs:/var/log/jenkins
