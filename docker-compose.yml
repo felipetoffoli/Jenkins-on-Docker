@@ -1,10 +1,9 @@
 version: '3.8'
 
 services: 
-  app-jenkins:
-    container_name: app_jenkins
-    build: 
-      context: jenkins/.
+  app-jenkins-master:
+    container_name: app_jenkins_master
+    build: ./jenkins-master
     volumes: 
       - jenkins_home:/var/jenkins_home
       - jenkins_logs:/var/log/jenkins
@@ -16,8 +15,9 @@ services:
       JENKINS_OPTS: '--handlerCountMax=300 --logfile=/var/log/jenkins/jenkins.log  --webroot=/var/cache/jenkins/war'
       JAVA_OPTS: '-Xmx8192m'
   
-  dns-nginx:
-    build: ./jenkins-nginx
+  dns-jenkins-nginx:
+    build: ./jenkins-nginx/.
+    container_name: dns_jenkins_nginx
     ports:
       - "80:80"
     networks:
@@ -28,4 +28,5 @@ volumes:
   jenkins_logs: 
 
 networks: 
-  networks-net:
+  jenkins-net:
+    driver: bridge
